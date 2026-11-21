@@ -40,10 +40,9 @@ const useAuth = () => {
   })
 
   const login = async (data: AccessToken) => {
-    const response =
-      await LoginService.accessTokenApiV1LoginAccessTokenPost({
-        formData: data,
-      })
+    const response = await LoginService.accessTokenApiV1LoginAccessTokenPost({
+      formData: data,
+    })
     localStorage.setItem("access_token", response.access_token)
   }
 

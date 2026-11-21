@@ -1,9 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router"
 import { Maximize2 } from "lucide-react"
-
+import { Button } from "@/components/ui/button"
 import useAuth from "@/hooks/useAuth"
 import useWindowState from "@/hooks/useTrayNotification"
-import { Button } from "@/components/ui/button"
 
 export const Route = createFileRoute("/_layout/")({
   component: Dashboard,
