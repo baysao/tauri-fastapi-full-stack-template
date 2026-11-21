@@ -85,7 +85,9 @@ function ResetPassword() {
   const mutation = useMutation({
     mutationFn: (_data: { new_password: string; token: string }) => {
       // Password reset endpoint not implemented in backend yet
-      throw new Error("Password reset is not implemented. Please contact an administrator.")
+      throw new Error(
+        "Password reset is not implemented. Please contact an administrator.",
+      )
     },
     onSuccess: () => {
       showSuccessToast("Password updated successfully")

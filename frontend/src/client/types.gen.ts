@@ -97,9 +97,14 @@ export type ValidationError = {
     type: string;
 };
 
-export type RootGetResponse = (unknown);
+/**
+ * Request model for window state control.
+ */
+export type WindowStateRequest = {
+    action: string;
+};
 
-export type HealthCheckApiV1HealthGetResponse = (unknown);
+export type RootGetResponse = (unknown);
 
 export type ReadItemsApiV1ItemsGetData = {
     limit?: number;
@@ -194,3 +199,15 @@ export type DeleteUserApiV1UsersUserIdDeleteData = {
 };
 
 export type DeleteUserApiV1UsersUserIdDeleteResponse = (Message);
+
+export type WindowHealthCheckApiV1HealthGetResponse = ({
+    [key: string]: (string);
+});
+
+export type ToggleWindowStateApiV1WindowPostData = {
+    requestBody: WindowStateRequest;
+};
+
+export type ToggleWindowStateApiV1WindowPostResponse = ({
+    [key: string]: (string);
+});

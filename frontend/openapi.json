@@ -17,13 +17,22 @@
     },
     "/api/v1/health": {
       "get": {
-        "summary": "Health Check",
-        "description": "Health check endpoint for sidecar readiness.",
-        "operationId": "health_check_api_v1_health_get",
+        "tags": ["window"],
+        "summary": "Window Health Check",
+        "description": "Check if the Tauri window socket server is available.",
+        "operationId": "window_health_check_api_v1_health_get",
         "responses": {
           "200": {
             "description": "Successful Response",
-            "content": { "application/json": { "schema": {} } }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": { "type": "string" },
+                  "type": "object",
+                  "title": "Response Window Health Check Api V1 Health Get"
+                }
+              }
+            }
           }
         }
       }
@@ -586,6 +595,44 @@
           }
         }
       }
+    },
+    "/api/v1/window": {
+      "post": {
+        "tags": ["window"],
+        "summary": "Toggle Window State",
+        "description": "Toggle window maximize/restore state via Unix socket to Tauri.\n\nThis endpoint communicates with the Rust backend through a Unix socket\nto control the window state (maximize/restore).",
+        "operationId": "toggle_window_state_api_v1_window_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/WindowStateRequest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": { "type": "string" },
+                  "type": "object",
+                  "title": "Response Toggle Window State Api V1 Window Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -938,6 +985,13 @@
         "type": "object",
         "required": ["loc", "msg", "type"],
         "title": "ValidationError"
+      },
+      "WindowStateRequest": {
+        "properties": { "action": { "type": "string", "title": "Action" } },
+        "type": "object",
+        "required": ["action"],
+        "title": "WindowStateRequest",
+        "description": "Request model for window state control."
       }
     },
     "securitySchemes": {

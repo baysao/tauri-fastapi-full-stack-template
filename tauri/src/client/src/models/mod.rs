@@ -30,3 +30,5 @@ pub mod users_public;
 pub use self::users_public::UsersPublic;
 pub mod validation_error;
 pub use self::validation_error::ValidationError;
+pub mod window_state_request;
+pub use self::window_state_request::WindowStateRequest;

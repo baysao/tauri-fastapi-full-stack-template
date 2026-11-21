@@ -60,7 +60,9 @@ function RecoverPassword() {
 
   const recoverPassword = async (_data: FormData) => {
     // Password recovery endpoint not implemented in backend yet
-    throw new Error("Password recovery is not implemented. Please contact an administrator.")
+    throw new Error(
+      "Password recovery is not implemented. Please contact an administrator.",
+    )
   }
 
   const mutation = useMutation({
