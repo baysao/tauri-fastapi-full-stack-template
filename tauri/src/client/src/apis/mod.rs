@@ -115,5 +115,6 @@ pub mod default_api;
 pub mod items_api;
 pub mod login_api;
 pub mod users_api;
+pub mod window_api;
 
 pub mod configuration;

@@ -507,3 +507,16 @@ export const ValidationErrorSchema = {
     required: ['loc', 'msg', 'type'],
     title: 'ValidationError'
 } as const;
+
+export const WindowStateRequestSchema = {
+    properties: {
+        action: {
+            type: 'string',
+            title: 'Action'
+        }
+    },
+    type: 'object',
+    required: ['action'],
+    title: 'WindowStateRequest',
+    description: 'Request model for window state control.'
+} as const;

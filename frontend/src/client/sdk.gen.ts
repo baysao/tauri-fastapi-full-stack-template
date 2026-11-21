@@ -3,7 +3,7 @@
 import type { CancelablePromise } from './core/CancelablePromise';
 import { OpenAPI } from './core/OpenAPI';
 import { request as __request } from './core/request';
-import type { RootGetResponse, HealthCheckApiV1HealthGetResponse, ReadItemsApiV1ItemsGetData, ReadItemsApiV1ItemsGetResponse, CreateItemApiV1ItemsPostData, CreateItemApiV1ItemsPostResponse, ReadItemApiV1ItemsIdGetData, ReadItemApiV1ItemsIdGetResponse, UpdateItemApiV1ItemsIdPutData, UpdateItemApiV1ItemsIdPutResponse, DeleteItemApiV1ItemsIdDeleteData, DeleteItemApiV1ItemsIdDeleteResponse, LoginAccessTokenApiV1LoginAccessTokenPostData, LoginAccessTokenApiV1LoginAccessTokenPostResponse, TestTokenApiV1LoginTestTokenPostResponse, ReadUsersApiV1UsersGetData, ReadUsersApiV1UsersGetResponse, CreateUserApiV1UsersPostData, CreateUserApiV1UsersPostResponse, ReadUserMeApiV1UsersMeGetResponse, DeleteUserMeApiV1UsersMeDeleteResponse, UpdateUserMeApiV1UsersMePatchData, UpdateUserMeApiV1UsersMePatchResponse, UpdatePasswordMeApiV1UsersMePasswordPatchData, UpdatePasswordMeApiV1UsersMePasswordPatchResponse, RegisterUserApiV1UsersSignupPostData, RegisterUserApiV1UsersSignupPostResponse, ReadUserByIdApiV1UsersUserIdGetData, ReadUserByIdApiV1UsersUserIdGetResponse, UpdateUserApiV1UsersUserIdPatchData, UpdateUserApiV1UsersUserIdPatchResponse, DeleteUserApiV1UsersUserIdDeleteData, DeleteUserApiV1UsersUserIdDeleteResponse } from './types.gen';
+import type { RootGetResponse, ReadItemsApiV1ItemsGetData, ReadItemsApiV1ItemsGetResponse, CreateItemApiV1ItemsPostData, CreateItemApiV1ItemsPostResponse, ReadItemApiV1ItemsIdGetData, ReadItemApiV1ItemsIdGetResponse, UpdateItemApiV1ItemsIdPutData, UpdateItemApiV1ItemsIdPutResponse, DeleteItemApiV1ItemsIdDeleteData, DeleteItemApiV1ItemsIdDeleteResponse, LoginAccessTokenApiV1LoginAccessTokenPostData, LoginAccessTokenApiV1LoginAccessTokenPostResponse, TestTokenApiV1LoginTestTokenPostResponse, ReadUsersApiV1UsersGetData, ReadUsersApiV1UsersGetResponse, CreateUserApiV1UsersPostData, CreateUserApiV1UsersPostResponse, ReadUserMeApiV1UsersMeGetResponse, DeleteUserMeApiV1UsersMeDeleteResponse, UpdateUserMeApiV1UsersMePatchData, UpdateUserMeApiV1UsersMePatchResponse, UpdatePasswordMeApiV1UsersMePasswordPatchData, UpdatePasswordMeApiV1UsersMePasswordPatchResponse, RegisterUserApiV1UsersSignupPostData, RegisterUserApiV1UsersSignupPostResponse, ReadUserByIdApiV1UsersUserIdGetData, ReadUserByIdApiV1UsersUserIdGetResponse, UpdateUserApiV1UsersUserIdPatchData, UpdateUserApiV1UsersUserIdPatchResponse, DeleteUserApiV1UsersUserIdDeleteData, DeleteUserApiV1UsersUserIdDeleteResponse, WindowHealthCheckApiV1HealthGetResponse, ToggleWindowStateApiV1WindowPostData, ToggleWindowStateApiV1WindowPostResponse } from './types.gen';
 
 export class DefaultService {
     /**
@@ -16,19 +16,6 @@ export class DefaultService {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/'
-        });
-    }
-    
-    /**
-     * Health Check
-     * Health check endpoint for sidecar readiness.
-     * @returns unknown Successful Response
-     * @throws ApiError
-     */
-    public static healthCheckApiV1HealthGet(): CancelablePromise<HealthCheckApiV1HealthGetResponse> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/v1/health'
         });
     }
 }
@@ -369,6 +356,44 @@ export class UsersService {
             path: {
                 user_id: data.userId
             },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+}
+
+export class WindowService {
+    /**
+     * Window Health Check
+     * Check if the Tauri window socket server is available.
+     * @returns string Successful Response
+     * @throws ApiError
+     */
+    public static healthCheckApiV1HealthGet(): CancelablePromise<WindowHealthCheckApiV1HealthGetResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/health'
+        });
+    }
+    
+    /**
+     * Toggle Window State
+     * Toggle window maximize/restore state via Unix socket to Tauri.
+     *
+     * This endpoint communicates with the Rust backend through a Unix socket
+     * to control the window state (maximize/restore).
+     * @param data The data for the request.
+     * @param data.requestBody
+     * @returns string Successful Response
+     * @throws ApiError
+     */
+    public static toggleWindowStateApiV1WindowPost(data: ToggleWindowStateApiV1WindowPostData): CancelablePromise<ToggleWindowStateApiV1WindowPostResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/v1/window',
+            body: data.requestBody,
+            mediaType: 'application/json',
             errors: {
                 422: 'Validation Error'
             }
